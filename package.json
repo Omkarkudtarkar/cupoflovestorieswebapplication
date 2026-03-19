@@ -1,5 +1,11 @@
 {
-  "dependencies": {
-    "react-scripts": "^5.0.1"
+  "private": true,
+  "workspaces": [
+    "cupoflovestories"
+  ],
+  "scripts": {
+    "dev": "npm --prefix cupoflovestories run dev",
+    "build": "npm --prefix cupoflovestories run build",
+    "preview": "npm --prefix cupoflovestories run preview"
   }
 }
