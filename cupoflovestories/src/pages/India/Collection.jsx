@@ -17,7 +17,13 @@ export default function IndiaCollection() {
         const urls = data
           .filter(f => f.name.match(/\.(jpg|jpeg|png|webp)$/i))
           .map(f => {
-            const { data: { publicUrl } } = supabase.storage.from('india-photos').getPublicUrl(f.name)
+            const { data: { publicUrl } } = supabase.storage.from('india-photos').getPublicUrl(f.name, {
+              transform: {
+                width: 800,
+                quality: 75,
+                format: 'webp',
+              }
+            })
             return publicUrl
           })
         setPhotos(urls)
@@ -47,7 +53,9 @@ export default function IndiaCollection() {
               <img
                 src={url}
                 alt={`Photo ${i+1}`}
-                className="mb-6 w-full rounded-xl cursor-pointer transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+                loading="lazy"
+                decoding="async"
+                className="mb-6 w-full rounded-xl cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl"
               />
             </a>
           ))}

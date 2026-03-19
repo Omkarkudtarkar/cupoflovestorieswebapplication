@@ -11,7 +11,7 @@ export default function EuropeHome() {
           <div className="absolute inset-0 bg-black/30" />
           <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 text-white">
             <span className="tracking-widest text-sm mb-4 uppercase">Destination Wedding Photographer</span>
-            <h1 className="serif text-5xl md:text-7xl leading-tight mb-8">
+            <h1 className="serif leading-tight mb-8" style={{ fontSize: 'clamp(2rem, 8vw, 5rem)' }}>
               Because Your Love Deserves<br />To Look Like A Movie
             </h1>
             <p className="max-w-2xl text-lg text-white/90 mb-10">Cinematic, nostalgic storytelling for couples who value emotion over perfection.</p>

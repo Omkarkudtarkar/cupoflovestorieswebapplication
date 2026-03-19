@@ -27,7 +27,7 @@ export default function EuropeInformation() {
         ))}
       </section>
 
-      <section className="bg-white py-12 px-6">
+      <section className="bg-white py-12 px-4 md:px-6">
         <ScrollReveal><h2 className="serif text-4xl text-center mb-8">What We Offer</h2></ScrollReveal>
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {[

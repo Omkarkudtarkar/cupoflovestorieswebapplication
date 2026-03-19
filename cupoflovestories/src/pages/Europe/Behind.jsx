@@ -6,7 +6,7 @@ export default function EuropeBehind() {
     <div className="pt-24" style={{ background: '#f5f3ef' }}>
       <ScrollReveal>
         <section className="pt-44 pb-24 px-6">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             <div className="relative">
               <img src="/images/europe/behind.jpg" className="w-full rounded-xl object-cover" alt="" />
               <div className="absolute bottom-0 left-0 w-full h-[30%] rounded-b-xl bg-gradient-to-t from-black/40 to-transparent" />

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 
 const ADMIN_PASSWORD = 'cupoflovestories2026'
 
 export default function AdminPage() {
+  const navigate = useNavigate()
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('admin_authed') === 'true')
   const [pw, setPw] = useState('')
   const [pwError, setPwError] = useState('')
@@ -20,8 +22,15 @@ export default function AdminPage() {
 
   if (!authed) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f5f3ef]">
-        <div className="text-center" style={{ background:'rgba(255,255,255,0.9)', borderRadius:16, padding:'48px 36px', boxShadow:'0 20px 50px rgba(0,0,0,0.1)', minWidth:340 }}>
+      <div
+        className="min-h-screen flex items-center justify-center bg-[#f5f3ef]"
+        onClick={() => navigate('/')}
+      >
+        <div
+          className="text-center"
+          onClick={e => e.stopPropagation()}
+          style={{ background:'rgba(255,255,255,0.9)', borderRadius:16, padding:'48px 36px', boxShadow:'0 20px 50px rgba(0,0,0,0.1)', minWidth:340 }}
+        >
           <h1 className="serif text-4xl mb-2">Admin Access</h1>
           <p className="text-gray-500 mb-8 text-sm tracking-wide">Cup Of Love Stories</p>
           <input

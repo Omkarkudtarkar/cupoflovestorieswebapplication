@@ -10,7 +10,7 @@ export default function IndiaBehind() {
           <div className="absolute inset-0 -z-10">
             <img src="/images/india/olive.jpg" className="w-full h-full object-cover" alt="" />
           </div>
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center relative z-10">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center relative z-10">
             <div className="relative">
               <img src="/images/india/behind.jpg" className="w-full rounded-xl object-cover" alt="" />
               <div className="absolute bottom-0 left-0 w-full h-[30%] rounded-b-xl bg-gradient-to-t from-black/40 to-transparent" />
