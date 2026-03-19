@@ -41,7 +41,7 @@ export default function EuropeCollection() {
   }, [photos])
 
   return (
-    <div className="pt-24" style={{ background: '#f5f3ef' }}>
+    <div className="pt-24">
       <section className="pt-40 px-6 max-w-6xl mx-auto">
         <h1 className="serif text-5xl text-center mb-16">Collection</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

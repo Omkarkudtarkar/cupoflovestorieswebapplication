@@ -35,16 +35,10 @@ export default function Navbar() {
 
   const handleRegionToggle = () => {
     const newRegion = region === 'india' ? 'europe' : 'india'
-    const hasRegionPrefix = /^\/(india|europe)(\/|$)/.test(location.pathname)
-    const nextPath = hasRegionPrefix
-      ? (region === 'india'
-        ? location.pathname.replace(/^\/india(\/|$)/, `/europe$1`)
-        : location.pathname.replace(/^\/europe(\/|$)/, `/india$1`))
-      : `/${newRegion}/`
-    const normalizedPath = nextPath === `/${newRegion}` ? `/${newRegion}/` : nextPath
 
     toggleRegion()
-    navigate(normalizedPath || `/${newRegion}/`)
+    navigate(`/${newRegion}/`, { replace: true })
+    window.scrollTo(0, 0)
     setMenuOpen(false)
   }
 

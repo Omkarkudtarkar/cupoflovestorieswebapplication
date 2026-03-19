@@ -11,6 +11,9 @@ html, body {
 
 body {
   font-family: "Times New Roman", serif;
+  background-image: url('/backgrounds/vintage.jpg');
+  background-repeat: repeat;
+  background-size: 400px 400px;
   background-color: #f5f3ef;
   color: #1c1c1c;
 }
@@ -34,6 +37,10 @@ body {
 
 .hero-responsive {
   font-size: clamp(2rem, 8vw, 5rem);
+}
+
+input[type="date"]:not(:focus):required:invalid {
+  color: #7a7a7a;
 }
 
 /* GLightbox overrides */

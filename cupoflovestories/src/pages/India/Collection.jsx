@@ -44,7 +44,7 @@ export default function IndiaCollection() {
   }, [photos])
 
   return (
-    <div className="pt-24" style={{ backgroundImage: "url('/backgrounds/texture.jpg')", backgroundRepeat: 'repeat' }}>
+    <div className="pt-24">
       <section className="pt-40 px-6 max-w-6xl mx-auto">
         <h1 className="serif text-5xl text-center mb-16">Collection</h1>
         <div className="columns-1 sm:columns-2 md:columns-3 gap-6">
