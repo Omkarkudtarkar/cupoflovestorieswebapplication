@@ -58,6 +58,37 @@ const EUROPE_LOCATIONS = [
   'Mauritius', 'Seychelles',
 ]
 
+const SHOOT_TYPES = [
+  'Destination Wedding - Full Day',
+  'Destination Wedding - Partial Coverage',
+  'Elopement',
+  'Engagement / Pre-Wedding Session',
+  'Couple Portrait Session',
+  'Honeymoon Story',
+  'Destination Family Portrait',
+  'Anniversary Story',
+]
+
+const DAY_OPTIONS = ['1 Day', '2 Days', '3 Days', '4-7 Days', 'More than a Week', 'Not Sure Yet']
+const GUEST_OPTIONS = ['Just the Couple', 'Under 30', '30-80', '80-150', '150+']
+const BUDGET_OPTIONS = [
+  'Under EUR 1,000',
+  'EUR 1,000 - EUR 2,500',
+  'EUR 2,500 - EUR 5,000',
+  'EUR 5,000 - EUR 10,000',
+  'EUR 10,000+',
+  'Flexible / Open to Discuss',
+]
+const REFERRAL_OPTIONS = [
+  'Instagram',
+  'Google Search',
+  'Friend / Family Referral',
+  'Wedding Blog or Magazine',
+  'Wedding Planner Recommendation',
+  'Seen our previous work',
+  'Other',
+]
+
 export default function EuropeInquire() {
   const navigate = useNavigate()
   const [form, setForm] = useState({
@@ -77,7 +108,6 @@ export default function EuropeInquire() {
   const [sending, setSending] = useState(false)
   const [codeSearch, setCodeSearch] = useState('')
   const [codeOpen, setCodeOpen] = useState(false)
-  const [locationInput, setLocationInput] = useState('')
   const [locationOpen, setLocationOpen] = useState(false)
   const codeRef = useRef(null)
   const locationRef = useRef(null)
@@ -88,11 +118,11 @@ export default function EuropeInquire() {
     c.label.toLowerCase().includes(codeSearch.toLowerCase()) || c.code.includes(codeSearch)
   ), [codeSearch])
   const filteredLocations = useMemo(() => EUROPE_LOCATIONS.filter(l =>
-    l.toLowerCase().includes(locationInput.toLowerCase())
-  ), [locationInput])
+    l.toLowerCase().includes(form.location.toLowerCase())
+  ), [form.location])
 
   const inputClass = 'w-full bg-transparent border-0 border-b border-gray-400 py-3 outline-none text-base tracking-wide placeholder-gray-500 focus:border-black focus:border-b-2 transition-all'
-  const fieldClass = 'w-full bg-transparent border-0 border-b border-gray-400 py-3 outline-none text-base tracking-wide text-gray-700 focus:border-black focus:border-b-2 transition-all appearance-none cursor-pointer'
+  const fieldClass = 'w-full bg-transparent border-0 border-b border-gray-400 py-3 outline-none text-base tracking-wide text-gray-700 placeholder-gray-500 focus:border-black focus:border-b-2 transition-all'
 
   useEffect(() => {
     function handleOutsideClick(e) {
@@ -149,20 +179,12 @@ export default function EuropeInquire() {
           zIndex: -1,
           backgroundImage: "url('/backgrounds/texture.jpg')",
           backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
+          backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
         }}
       />
-      <div
-        className="pt-24 relative"
-        style={{
-          backgroundImage: "url('/backgrounds/texture.jpg')",
-          backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
-          backgroundRepeat: 'no-repeat',
-          isolation: 'isolate',
-        }}
-      >
+
+      <div className="pt-24 relative" style={{ isolation: 'isolate' }}>
         <ScrollReveal>
           <section className="pt-44 pb-20 text-center px-6">
             <h1 className="serif text-6xl md:text-7xl mb-6 text-black">Let&apos;s Begin Your Story</h1>
@@ -178,8 +200,8 @@ export default function EuropeInquire() {
             <form
               onSubmit={handleSubmit}
               style={{
-                background: 'rgba(255,255,255,0.85)',
-                backdropFilter: 'blur(12px)',
+                background: 'rgba(255,255,255,0.9)',
+                backdropFilter: 'blur(8px)',
                 borderRadius: 16,
                 padding: 'clamp(24px, 5vw, 48px) clamp(16px, 4vw, 36px)',
                 boxShadow: '0 20px 50px rgba(0,0,0,0.15)',
@@ -214,7 +236,7 @@ export default function EuropeInquire() {
                       className="w-full flex items-center justify-between gap-2 border-b border-gray-400 py-3 bg-transparent outline-none text-base text-left"
                     >
                       <span>{form.countryCode || 'Select Country Code'}</span>
-                      <span className="text-xs text-gray-400">▼</span>
+                      <span className="text-xs text-gray-400">v</span>
                     </button>
                     {codeOpen && (
                       <div className="absolute top-12 left-0 z-50 bg-white border border-gray-200 rounded-lg shadow-xl w-72 max-h-64 overflow-y-auto">
@@ -246,7 +268,7 @@ export default function EuropeInquire() {
                   </div>
 
                   <input
-                    className="flex-1 bg-transparent border-0 border-b border-gray-400 py-3 outline-none text-base tracking-wide placeholder-gray-500 focus:border-black focus:border-b-2 transition-all"
+                    className={inputClass}
                     type="tel"
                     name="phone"
                     placeholder={form.countryCode ? `${requiredLen} digit number` : 'Enter phone number'}
@@ -266,17 +288,18 @@ export default function EuropeInquire() {
                   required
                 />
 
-                <select name="shootType" value={form.shootType} onChange={handleChange} className={fieldClass} required>
-                  <option value="">Type of Shoot</option>
-                  <option>Destination Wedding - Full Day</option>
-                  <option>Destination Wedding - Partial Coverage</option>
-                  <option>Elopement</option>
-                  <option>Engagement / Pre-Wedding Session</option>
-                  <option>Couple Portrait Session</option>
-                  <option>Honeymoon Story</option>
-                  <option>Destination Family Portrait</option>
-                  <option>Anniversary Story</option>
-                </select>
+                <input
+                  list="europe-shoot-types"
+                  name="shootType"
+                  value={form.shootType}
+                  onChange={handleChange}
+                  placeholder="Type of Shoot"
+                  className={fieldClass}
+                  required
+                />
+                <datalist id="europe-shoot-types">
+                  {SHOOT_TYPES.map(option => <option key={option} value={option} />)}
+                </datalist>
 
                 <div className="relative" ref={locationRef}>
                   <input
@@ -284,12 +307,10 @@ export default function EuropeInquire() {
                     type="text"
                     name="location"
                     placeholder="Location / Venue"
-                    value={locationInput}
+                    value={form.location}
                     onChange={e => {
-                      const value = e.target.value
-                      setLocationInput(value)
+                      handleChange(e)
                       setLocationOpen(true)
-                      setForm(f => ({ ...f, location: value }))
                     }}
                     onFocus={() => setLocationOpen(true)}
                     required
@@ -301,7 +322,6 @@ export default function EuropeInquire() {
                           key={loc}
                           type="button"
                           onMouseDown={() => {
-                            setLocationInput(loc)
                             setForm(f => ({ ...f, location: loc }))
                             setLocationOpen(false)
                           }}
@@ -314,45 +334,54 @@ export default function EuropeInquire() {
                   )}
                 </div>
 
-                <select name="days" value={form.days} onChange={handleChange} className={fieldClass} required>
-                  <option value="">Number of Days</option>
-                  <option>1 Day</option>
-                  <option>2 Days</option>
-                  <option>3 Days</option>
-                  <option>4-7 Days</option>
-                  <option>More than a Week</option>
-                  <option>Not Sure Yet</option>
-                </select>
+                <input
+                  list="europe-day-options"
+                  name="days"
+                  value={form.days}
+                  onChange={handleChange}
+                  placeholder="Number of Days"
+                  className={fieldClass}
+                  required
+                />
+                <datalist id="europe-day-options">
+                  {DAY_OPTIONS.map(option => <option key={option} value={option} />)}
+                </datalist>
 
-                <select name="guestCount" value={form.guestCount} onChange={handleChange} className={fieldClass}>
-                  <option value="">Approximate Guest Count</option>
-                  <option>Just the Two of Us (Elopement)</option>
-                  <option>Under 30</option>
-                  <option>30-80</option>
-                  <option>80-150</option>
-                  <option>150+</option>
-                </select>
+                <input
+                  list="europe-guest-options"
+                  name="guestCount"
+                  value={form.guestCount}
+                  onChange={handleChange}
+                  placeholder="Approximate Guest Count"
+                  className={fieldClass}
+                />
+                <datalist id="europe-guest-options">
+                  {GUEST_OPTIONS.map(option => <option key={option} value={option} />)}
+                </datalist>
 
-                <select name="budget" value={form.budget} onChange={handleChange} className={fieldClass}>
-                  <option value="">Approximate Budget (EUR)</option>
-                  <option>Under EUR 1,000</option>
-                  <option>EUR 1,000 - EUR 2,500</option>
-                  <option>EUR 2,500 - EUR 5,000</option>
-                  <option>EUR 5,000 - EUR 10,000</option>
-                  <option>EUR 10,000+</option>
-                  <option>Flexible / Open to Discuss</option>
-                </select>
+                <input
+                  list="europe-budget-options"
+                  name="budget"
+                  value={form.budget}
+                  onChange={handleChange}
+                  placeholder="Approximate Budget (EUR)"
+                  className={fieldClass}
+                />
+                <datalist id="europe-budget-options">
+                  {BUDGET_OPTIONS.map(option => <option key={option} value={option} />)}
+                </datalist>
 
-                <select name="referral" value={form.referral} onChange={handleChange} className={fieldClass}>
-                  <option value="">How did you find us?</option>
-                  <option>Instagram</option>
-                  <option>Google Search</option>
-                  <option>Friend / Family Referral</option>
-                  <option>Wedding Blog or Magazine</option>
-                  <option>Wedding Planner Recommendation</option>
-                  <option>Seen our previous work</option>
-                  <option>Other</option>
-                </select>
+                <input
+                  list="europe-referral-options"
+                  name="referral"
+                  value={form.referral}
+                  onChange={handleChange}
+                  placeholder="How did you find us?"
+                  className={fieldClass}
+                />
+                <datalist id="europe-referral-options">
+                  {REFERRAL_OPTIONS.map(option => <option key={option} value={option} />)}
+                </datalist>
 
                 <textarea
                   name="message"
@@ -389,7 +418,7 @@ export default function EuropeInquire() {
           </section>
         </ScrollReveal>
 
-        <footer className="text-center pb-16 text-gray-500 text-sm">© 2026 Cup Of Love Stories Europe</footer>
+        <footer className="text-center pb-16 text-gray-500 text-sm">Copyright 2026 Cup Of Love Stories Europe</footer>
       </div>
     </div>
   )

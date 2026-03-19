@@ -47,6 +47,36 @@ const INDIA_LOCATIONS = [
   'Amritsar', 'Chandigarh', 'Ahmedabad', 'Surat', 'Pune',
 ]
 
+const SHOOT_TYPES = [
+  'Wedding - Full Day',
+  'Wedding - Partial Coverage',
+  'Pre-Wedding / Engagement',
+  'Haldi / Mehendi / Sangeet',
+  'Couple Portrait Session',
+  'Family Portrait',
+  'Special Moments / Surprise Proposal',
+  'Destination Story',
+]
+
+const DAY_OPTIONS = ['1 Day', '2 Days', '3 Days', '4-5 Days', 'Full Week', 'Not Sure Yet']
+const GUEST_OPTIONS = ['Just the Couple', 'Under 50', '50-150', '150-300', '300-500', '500+']
+const BUDGET_OPTIONS = [
+  'Under Rs 50,000',
+  'Rs 50,000 - Rs 1,00,000',
+  'Rs 1,00,000 - Rs 2,00,000',
+  'Rs 2,00,000 - Rs 5,00,000',
+  'Rs 5,00,000+',
+  'Flexible / Open to Discuss',
+]
+const REFERRAL_OPTIONS = [
+  'Instagram',
+  'Google Search',
+  'Friend / Family Referral',
+  'Wedding Platform (WedMeGood, ShaadiSaga etc.)',
+  'Seen our previous work',
+  'Other',
+]
+
 export default function IndiaInquire() {
   const navigate = useNavigate()
   const [form, setForm] = useState({
@@ -66,7 +96,6 @@ export default function IndiaInquire() {
   const [sending, setSending] = useState(false)
   const [codeSearch, setCodeSearch] = useState('')
   const [codeOpen, setCodeOpen] = useState(false)
-  const [locationInput, setLocationInput] = useState('')
   const [locationOpen, setLocationOpen] = useState(false)
   const codeRef = useRef(null)
   const locationRef = useRef(null)
@@ -77,11 +106,11 @@ export default function IndiaInquire() {
     c.label.toLowerCase().includes(codeSearch.toLowerCase()) || c.code.includes(codeSearch)
   ), [codeSearch])
   const filteredLocations = useMemo(() => INDIA_LOCATIONS.filter(l =>
-    l.toLowerCase().includes(locationInput.toLowerCase())
-  ), [locationInput])
+    l.toLowerCase().includes(form.location.toLowerCase())
+  ), [form.location])
 
   const inputClass = 'w-full bg-transparent border-0 border-b border-gray-400 py-3 outline-none text-base tracking-wide placeholder-gray-500 focus:border-black focus:border-b-2 transition-all'
-  const fieldClass = 'w-full bg-transparent border-0 border-b border-gray-400 py-3 outline-none text-base tracking-wide text-gray-700 focus:border-black focus:border-b-2 transition-all appearance-none cursor-pointer'
+  const fieldClass = 'w-full bg-transparent border-0 border-b border-gray-400 py-3 outline-none text-base tracking-wide text-gray-700 placeholder-gray-500 focus:border-black focus:border-b-2 transition-all'
 
   useEffect(() => {
     function handleOutsideClick(e) {
@@ -134,20 +163,12 @@ export default function IndiaInquire() {
           zIndex: -1,
           backgroundImage: "url('/backgrounds/texture.jpg')",
           backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
+          backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
         }}
       />
-      <div
-        className="pt-24 relative"
-        style={{
-          backgroundImage: "url('/backgrounds/texture.jpg')",
-          backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
-          backgroundRepeat: 'no-repeat',
-          isolation: 'isolate',
-        }}
-      >
+
+      <div className="pt-24 relative" style={{ isolation: 'isolate' }}>
         <ScrollReveal>
           <section className="pt-44 pb-20 text-center px-6">
             <h1 className="serif text-6xl md:text-7xl mb-6 text-black">Let&apos;s Begin Your Story</h1>
@@ -163,8 +184,8 @@ export default function IndiaInquire() {
             <form
               onSubmit={handleSubmit}
               style={{
-                background: 'rgba(255,255,255,0.85)',
-                backdropFilter: 'blur(12px)',
+                background: 'rgba(255,255,255,0.9)',
+                backdropFilter: 'blur(8px)',
                 borderRadius: 16,
                 padding: 'clamp(24px, 5vw, 48px) clamp(16px, 4vw, 36px)',
                 boxShadow: '0 20px 50px rgba(0,0,0,0.15)',
@@ -199,7 +220,7 @@ export default function IndiaInquire() {
                       className="w-full flex items-center justify-between gap-2 border-b border-gray-400 py-3 bg-transparent outline-none text-base text-left"
                     >
                       <span>{form.countryCode}</span>
-                      <span className="text-xs text-gray-400">▼</span>
+                      <span className="text-xs text-gray-400">v</span>
                     </button>
                     {codeOpen && (
                       <div className="absolute top-12 left-0 z-50 bg-white border border-gray-200 rounded-lg shadow-xl w-72 max-h-64 overflow-y-auto">
@@ -231,7 +252,7 @@ export default function IndiaInquire() {
                   </div>
 
                   <input
-                    className="flex-1 bg-transparent border-0 border-b border-gray-400 py-3 outline-none text-base tracking-wide placeholder-gray-500 focus:border-black focus:border-b-2 transition-all"
+                    className={inputClass}
                     type="tel"
                     name="phone"
                     placeholder={`${requiredLen} digit number`}
@@ -251,17 +272,18 @@ export default function IndiaInquire() {
                   required
                 />
 
-                <select name="shootType" value={form.shootType} onChange={handleChange} className={fieldClass} required>
-                  <option value="">Type of Shoot</option>
-                  <option>Wedding - Full Day</option>
-                  <option>Wedding - Partial Coverage</option>
-                  <option>Pre-Wedding / Engagement</option>
-                  <option>Haldi / Mehendi / Sangeet</option>
-                  <option>Couple Portrait Session</option>
-                  <option>Family Portrait</option>
-                  <option>Special Moments / Surprise Proposal</option>
-                  <option>Destination Story</option>
-                </select>
+                <input
+                  list="india-shoot-types"
+                  name="shootType"
+                  value={form.shootType}
+                  onChange={handleChange}
+                  placeholder="Type of Shoot"
+                  className={fieldClass}
+                  required
+                />
+                <datalist id="india-shoot-types">
+                  {SHOOT_TYPES.map(option => <option key={option} value={option} />)}
+                </datalist>
 
                 <div className="relative" ref={locationRef}>
                   <input
@@ -269,12 +291,10 @@ export default function IndiaInquire() {
                     type="text"
                     name="location"
                     placeholder="Location / Venue"
-                    value={locationInput}
+                    value={form.location}
                     onChange={e => {
-                      const value = e.target.value
-                      setLocationInput(value)
+                      handleChange(e)
                       setLocationOpen(true)
-                      setForm(f => ({ ...f, location: value }))
                     }}
                     onFocus={() => setLocationOpen(true)}
                     required
@@ -286,7 +306,6 @@ export default function IndiaInquire() {
                           key={loc}
                           type="button"
                           onMouseDown={() => {
-                            setLocationInput(loc)
                             setForm(f => ({ ...f, location: loc }))
                             setLocationOpen(false)
                           }}
@@ -299,44 +318,54 @@ export default function IndiaInquire() {
                   )}
                 </div>
 
-                <select name="days" value={form.days} onChange={handleChange} className={fieldClass} required>
-                  <option value="">Number of Days</option>
-                  <option>1 Day</option>
-                  <option>2 Days</option>
-                  <option>3 Days</option>
-                  <option>4-5 Days</option>
-                  <option>Full Week</option>
-                  <option>Not Sure Yet</option>
-                </select>
+                <input
+                  list="india-day-options"
+                  name="days"
+                  value={form.days}
+                  onChange={handleChange}
+                  placeholder="Number of Days"
+                  className={fieldClass}
+                  required
+                />
+                <datalist id="india-day-options">
+                  {DAY_OPTIONS.map(option => <option key={option} value={option} />)}
+                </datalist>
 
-                <select name="guestCount" value={form.guestCount} onChange={handleChange} className={fieldClass}>
-                  <option value="">Approximate Guest Count</option>
-                  <option>Under 50</option>
-                  <option>50-150</option>
-                  <option>150-300</option>
-                  <option>300-500</option>
-                  <option>500+</option>
-                </select>
+                <input
+                  list="india-guest-options"
+                  name="guestCount"
+                  value={form.guestCount}
+                  onChange={handleChange}
+                  placeholder="Approximate Guest Count"
+                  className={fieldClass}
+                />
+                <datalist id="india-guest-options">
+                  {GUEST_OPTIONS.map(option => <option key={option} value={option} />)}
+                </datalist>
 
-                <select name="budget" value={form.budget} onChange={handleChange} className={fieldClass}>
-                  <option value="">Approximate Budget (INR)</option>
-                  <option>Under Rs 50,000</option>
-                  <option>Rs 50,000 - Rs 1,00,000</option>
-                  <option>Rs 1,00,000 - Rs 2,00,000</option>
-                  <option>Rs 2,00,000 - Rs 5,00,000</option>
-                  <option>Rs 5,00,000+</option>
-                  <option>Flexible / Open to Discuss</option>
-                </select>
+                <input
+                  list="india-budget-options"
+                  name="budget"
+                  value={form.budget}
+                  onChange={handleChange}
+                  placeholder="Approximate Budget (INR)"
+                  className={fieldClass}
+                />
+                <datalist id="india-budget-options">
+                  {BUDGET_OPTIONS.map(option => <option key={option} value={option} />)}
+                </datalist>
 
-                <select name="referral" value={form.referral} onChange={handleChange} className={fieldClass}>
-                  <option value="">How did you find us?</option>
-                  <option>Instagram</option>
-                  <option>Google Search</option>
-                  <option>Friend / Family Referral</option>
-                  <option>Wedding Platform (WedMeGood, ShaadiSaga etc.)</option>
-                  <option>Seen our previous work</option>
-                  <option>Other</option>
-                </select>
+                <input
+                  list="india-referral-options"
+                  name="referral"
+                  value={form.referral}
+                  onChange={handleChange}
+                  placeholder="How did you find us?"
+                  className={fieldClass}
+                />
+                <datalist id="india-referral-options">
+                  {REFERRAL_OPTIONS.map(option => <option key={option} value={option} />)}
+                </datalist>
 
                 <textarea
                   name="message"
@@ -373,7 +402,7 @@ export default function IndiaInquire() {
           </section>
         </ScrollReveal>
 
-        <footer className="text-center pb-16 text-gray-500 text-sm">© 2026 Cup Of Love Stories India</footer>
+        <footer className="text-center pb-16 text-gray-500 text-sm">Copyright 2026 Cup Of Love Stories India</footer>
       </div>
     </div>
   )

@@ -50,6 +50,17 @@ export default function Navbar() {
     setMenuOpen(false)
   }, [location.pathname])
 
+  useEffect(() => {
+    if (!menuOpen) {
+      document.body.style.overflow = ''
+      return
+    }
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
   return (
     <nav className="fixed top-0 w-full bg-white/80 backdrop-blur shadow-sm z-50">
       <div className="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center gap-4">
@@ -105,7 +116,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-10 text-2xl serif md:hidden">
+        <div className="fixed inset-0 bg-white z-[70] flex flex-col items-center justify-center gap-10 text-2xl serif md:hidden">
           <button
             type="button"
             className="absolute top-6 right-6 text-3xl leading-none"
