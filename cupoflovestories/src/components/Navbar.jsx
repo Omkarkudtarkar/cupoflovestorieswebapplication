@@ -124,7 +124,7 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
           />
 
-          <div className="absolute left-4 right-4 top-24 rounded-2xl border border-black/10 bg-white p-6 shadow-2xl">
+          <div className="absolute left-4 right-4 top-24 rounded-2xl border border-black/15 bg-[#f5f3ef]/55 backdrop-blur-xl p-6 shadow-2xl">
             <div className="mb-6 flex items-center justify-between">
               <p className="serif text-xl">Menu</p>
               <button
@@ -137,12 +137,12 @@ export default function Navbar() {
               </button>
             </div>
 
-            <div className="flex flex-col gap-5 text-xl serif">
+            <div className="flex flex-col gap-3 text-xl serif">
               {links.map(({ to, label }) => (
                 <Link
                   key={to}
                   to={to}
-                  className="hover:opacity-60 transition"
+                  className="block w-full rounded-xl border border-black/15 bg-black/5 px-4 py-3 text-center text-black shadow-sm transition hover:bg-black hover:text-white"
                   onClick={() => setMenuOpen(false)}
                 >
                   {label}
