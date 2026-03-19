@@ -171,24 +171,20 @@ export default function EuropeInquire() {
   }
 
   return (
-    <div style={{ background: 'none' }} className="relative">
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: -1,
-          backgroundImage: "url('/backgrounds/texture.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-
-      <div className="pt-24 relative" style={{ isolation: 'isolate' }}>
+    <div
+      className="pt-24 relative"
+      style={{
+        isolation: 'isolate',
+        backgroundImage: "url('/backgrounds/texture.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
         <ScrollReveal>
-          <section className="pt-44 pb-20 text-center px-6">
+          <section className="pt-32 md:pt-44 pb-20 text-center px-4 sm:px-6">
             <h1 className="serif text-6xl md:text-7xl mb-6 text-black">Let&apos;s Begin Your Story</h1>
-            <p className="max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed">
+            <p className="max-w-2xl mx-auto text-lg text-gray-700 leading-relaxed break-words">
               Tell us about your vision, your connection, and the atmosphere you want to preserve.
               We&apos;ll craft something timeless together.
             </p>
@@ -196,12 +192,11 @@ export default function EuropeInquire() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <section className="max-w-2xl mx-auto px-6 pb-32">
+          <section className="max-w-2xl mx-auto px-4 sm:px-6 pb-32">
             <form
               onSubmit={handleSubmit}
               style={{
                 background: 'rgba(255,255,255,0.9)',
-                backdropFilter: 'blur(8px)',
                 borderRadius: 16,
                 padding: 'clamp(24px, 5vw, 48px) clamp(16px, 4vw, 36px)',
                 boxShadow: '0 20px 50px rgba(0,0,0,0.15)',
@@ -228,8 +223,8 @@ export default function EuropeInquire() {
                   required
                 />
 
-                <div className="flex gap-3 items-start">
-                  <div className="relative min-w-[200px]" ref={codeRef}>
+                <div className="flex flex-col sm:flex-row gap-3 items-start">
+                  <div className="relative w-full sm:w-auto sm:min-w-[200px]" ref={codeRef}>
                     <button
                       type="button"
                       onClick={() => setCodeOpen(open => !open)}
@@ -239,7 +234,7 @@ export default function EuropeInquire() {
                       <span className="text-xs text-gray-400">v</span>
                     </button>
                     {codeOpen && (
-                      <div className="absolute top-12 left-0 z-50 bg-white border border-gray-200 rounded-lg shadow-xl w-72 max-h-64 overflow-y-auto">
+                      <div className="absolute top-12 left-0 z-50 bg-white border border-gray-200 rounded-lg shadow-xl w-full sm:w-72 max-h-64 overflow-y-auto">
                         <input
                           type="text"
                           placeholder="Search country..."
@@ -268,7 +263,7 @@ export default function EuropeInquire() {
                   </div>
 
                   <input
-                    className={inputClass}
+                    className={`${inputClass} w-full`}
                     type="tel"
                     name="phone"
                     placeholder={form.countryCode ? `${requiredLen} digit number` : 'Enter phone number'}
@@ -408,9 +403,9 @@ export default function EuropeInquire() {
         </ScrollReveal>
 
         <ScrollReveal>
-          <section className="py-20 text-center">
+          <section className="py-20 text-center px-4">
             <h2 className="serif text-3xl mb-12 font-semibold tracking-wide">Contact Me</h2>
-            <div className="flex flex-col md:flex-row justify-center items-center gap-12 text-lg">
+            <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-center items-center gap-10 text-base sm:text-lg break-words">
               <a href="https://instagram.com/cupoflovestories.eu" target="_blank" rel="noreferrer" className="text-gray-800 hover:text-amber-500 transition-all duration-500 hover:-translate-y-1 font-medium tracking-wide">Instagram</a>
               <a href="https://wa.me/917022130464" target="_blank" rel="noreferrer" className="text-gray-800 hover:text-amber-500 transition-all duration-500 hover:-translate-y-1 font-medium tracking-wide">WhatsApp / Call</a>
               <a href="https://mail.google.com/mail/?view=cm&fs=1&to=cupoflovestories06@gmail.com" target="_blank" rel="noreferrer" className="text-gray-800 hover:text-amber-500 transition-all duration-500 hover:-translate-y-1 font-medium tracking-wide">Email</a>
@@ -419,7 +414,6 @@ export default function EuropeInquire() {
         </ScrollReveal>
 
         <footer className="text-center pb-16 text-gray-500 text-sm">Copyright 2026 Cup Of Love Stories Europe</footer>
-      </div>
     </div>
   )
 }

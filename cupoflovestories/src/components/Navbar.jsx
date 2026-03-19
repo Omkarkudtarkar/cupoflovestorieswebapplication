@@ -116,42 +116,58 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="fixed inset-0 bg-white z-[70] flex flex-col items-center justify-center gap-10 text-2xl serif md:hidden">
+        <div className="fixed inset-0 z-[70] md:hidden">
           <button
             type="button"
-            className="absolute top-6 right-6 text-3xl leading-none"
+            aria-label="Close menu backdrop"
+            className="absolute inset-0 bg-black/45"
             onClick={() => setMenuOpen(false)}
-            aria-label="Close menu"
-          >
-            {'\u2715'}
-          </button>
-          {links.map(({ to, label }) => (
-            <Link
-              key={to}
-              to={to}
-              className="hover:opacity-60 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              {label}
-            </Link>
-          ))}
-          <div className="flex items-center gap-4 mt-6 text-base">
-            <span>India</span>
-            <button
-              type="button"
-              onClick={handleRegionToggle}
-              className={`w-14 h-7 rounded-full relative transition-all duration-300 ${
-                region === 'europe' ? 'bg-gray-800' : 'bg-gray-300'
-              }`}
-              aria-label="Toggle region"
-            >
-              <span
-                className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${
-                  region === 'europe' ? 'left-8' : 'left-1'
+          />
+
+          <div className="absolute left-4 right-4 top-24 rounded-2xl border border-black/10 bg-white p-6 shadow-2xl">
+            <div className="mb-6 flex items-center justify-between">
+              <p className="serif text-xl">Menu</p>
+              <button
+                type="button"
+                className="text-3xl leading-none"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                {'\u2715'}
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-5 text-xl serif">
+              {links.map(({ to, label }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className="hover:opacity-60 transition"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-8 flex items-center justify-center gap-4 text-sm">
+              <span>India</span>
+              <button
+                type="button"
+                onClick={handleRegionToggle}
+                className={`w-14 h-7 rounded-full relative transition-all duration-300 ${
+                  region === 'europe' ? 'bg-gray-800' : 'bg-gray-300'
                 }`}
-              />
-            </button>
-            <span>Europe</span>
+                aria-label="Toggle region"
+              >
+                <span
+                  className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${
+                    region === 'europe' ? 'left-8' : 'left-1'
+                  }`}
+                />
+              </button>
+              <span>Europe</span>
+            </div>
           </div>
         </div>
       )}
